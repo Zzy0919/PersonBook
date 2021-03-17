@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="au.edu.unsw.business.infs2605.personbook.PersonBookController">
+   <HBox alignment="CENTER" spacing="20.0">
+      <ListView fx:id="personList">
+
+      </ListView>
+      <TableView>
+         <columns>
+            <TableColumn text="Full Name"/>
+            <TableColumn text="Birth Day/Month"/>
+            <TableColumn text="Birth Year"/>
+            <TableColumn text="Is Important Personal"/>
+            <TableColumn text="Is Important Business"/>
+         </columns>
+      </TableView>
+
+      <HBox>
+         <TextField promptText="ID" fx:id="idInput"/>
+         <TextField promptText="Full Name" fx:id="fullNameInput"/>
+         <TextField promptText="Birth Day/Month" fx:id="birthDayInput"/>
+         <TextField promptText="Birth Year" fx:id="birthYearInput" />
+         <TextField promptText="Important Personal?" fx:id="importantPersonalInput"/>
+         <TextField promptText="Important Business?" fx:id="importantBusinessInput"/>
+         <Button text="Add" onAction="#onAddPerson"/>
+      </HBox>
+   </HBox>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
