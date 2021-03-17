@@ -14,6 +14,10 @@ public class PersonBook {
 
     private String isImportantBusiness;
 
+    PersonBook(){
+
+    };
+
     PersonBook(int id, String fullName, String birthDay, String birthYear, String isImportantPersonal,
                String isImportantBusiness){
         this.id = id;

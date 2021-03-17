@@ -16,25 +16,44 @@
       <ListView fx:id="personList">
 
       </ListView>
-      <TableView>
-         <columns>
-            <TableColumn text="Full Name"/>
-            <TableColumn text="Birth Day/Month"/>
-            <TableColumn text="Birth Year"/>
-            <TableColumn text="Is Important Personal"/>
-            <TableColumn text="Is Important Business"/>
-         </columns>
-      </TableView>
-
-      <HBox>
-         <TextField promptText="ID" fx:id="idInput"/>
-         <TextField promptText="Full Name" fx:id="fullNameInput"/>
-         <TextField promptText="Birth Day/Month" fx:id="birthDayInput"/>
-         <TextField promptText="Birth Year" fx:id="birthYearInput" />
-         <TextField promptText="Important Personal?" fx:id="importantPersonalInput"/>
-         <TextField promptText="Important Business?" fx:id="importantBusinessInput"/>
-         <Button text="Add" onAction="#onAddPerson"/>
-      </HBox>
+      <VBox>
+         <HBox>
+            <Label text="Full Name:                 "/>
+            <TextField fx:id="fullNameField" />
+         </HBox>
+         <HBox>
+            <Label text="Birth Day/Month:      "/>
+            <TextField fx:id="birthDayField"/>
+         </HBox>
+         <HBox>
+            <Label text="Birth Year:                 "/>
+            <TextField fx:id="birthYearField"/>
+         </HBox>
+         <HBox>
+            <Label text="Important Personal? "/>
+            <TextField fx:id="importantPersonalField"/>
+         </HBox>
+         <HBox>
+            <Label text="Important Business? "/>
+            <TextField fx:id="importantBusinessField"/>
+         </HBox>
+         <Label text="Notes: "/>
+         <Label fx:id="notesLabel"/>
+         <TextField fx:id="addNotesField" promptText="Add note..."/>
+         <HBox spacing="20">
+            <Button text="Save Changes" onAction="#onSave"/>
+            <Button text="Add Note" onAction="#onAddNote"/>
+         </HBox>
+      </VBox>
+   </HBox>
+   <HBox>
+      <TextField promptText="ID" fx:id="idInput" maxWidth="40"/>
+      <TextField promptText="Full Name" fx:id="fullNameInput"/>
+      <TextField promptText="Birth Day/Month" fx:id="birthDayInput" maxWidth="120"/>
+      <TextField promptText="Birth Year" fx:id="birthYearInput" maxWidth="100"/>
+      <TextField promptText="Important Personal?" fx:id="importantPersonalInput" maxWidth="100"/>
+      <TextField promptText="Important Business?" fx:id="importantBusinessInput" maxWidth="100"/>
+      <Button text="Add" onAction="#onAddPerson"/>
    </HBox>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

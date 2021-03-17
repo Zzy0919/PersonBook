@@ -12,19 +12,19 @@ import java.sql.Statement;
 
 public class DatabaseHelper {
 
-    public void initDatabase() throws SQLException {
+    public static void initDatabase() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:personbook.db");
         Statement st = conn.createStatement();
-        String sql = "CREATE TABLE PersonBook(id int, full_name varchar(64), birth_day_month varchar(16), " +
+        String sql = "CREATE TABLE PersonBook(id integer primary key, full_name varchar(64), birth_day varchar(16), " +
                 "birth_year varchar(4), important_personal CHAR(1), important_business char(1))";
         st.execute(sql);
-        sql = "CRETE TABLE Note(id int, person_id int, create_time datetime, content varchar(512)";
+        sql = "CREATE TABLE Note(id integer primary key AUTOINCREMENT, person_id int, create_time datetime, content varchar(512))";
         st.execute(sql);
         st.close();
         conn.close();
     }
 
-    public ArrayList<PersonBook> getAllPersons() throws SQLException{
+    public static ArrayList<PersonBook> getAllPersons() throws SQLException{
         Connection conn = DriverManager.getConnection("jdbc:sqlite:personbook.db");
         Statement st = conn.createStatement();
         String sql = "SELECT id, full_name, birth_day, birth_year, important_personal, important_business " +
@@ -41,7 +41,26 @@ public class DatabaseHelper {
         return books;
     }
 
-    public ArrayList<Note> getNoteByPersonId(int personId) throws SQLException{
+    public static PersonBook getPersonBook(int id) throws  SQLException{
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:personbook.db");
+        String sql = "SELECT id, full_name, birth_day, birth_year, important_personal, important_business " +
+                "from PersonBook where id = ?";
+        PreparedStatement st = conn.prepareStatement(sql);
+        st.setInt(1, id);
+        ResultSet rs = st.executeQuery();
+        PersonBook book = new PersonBook();
+        while(rs.next()){
+            book.setId(rs.getInt("id"));
+            book.setFullName(rs.getString("full_name"));
+            book.setBirthDay(rs.getString("birth_day"));
+            book.setBirthYear(rs.getString("birth_year"));
+            book.setIsImportantPersonal(rs.getString("important_personal"));
+            book.setIsImportantBusiness(rs.getString("important_business"));
+        }
+        return book;
+    }
+
+    public static ArrayList<Note> getNoteByPersonId(int personId) throws SQLException{
         Connection conn = DriverManager.getConnection("jdbc:sqlite:personbook.db");
         String sql = "SELECT id, person_id, create_time, content from Note where person_id = ?";
         PreparedStatement st = conn.prepareStatement(sql);
@@ -57,7 +76,7 @@ public class DatabaseHelper {
         return notes;
     }
 
-    public void insertPerson(PersonBook book) throws SQLException{
+    public static void insertPerson(PersonBook book) throws SQLException{
         Connection conn = DriverManager.getConnection("jdbc:sqlite:personbook.db");
         String sql = "insert into PersonBook values(?, ?, ?, ?, ?, ?)";
         PreparedStatement st = conn.prepareStatement(sql);
@@ -72,21 +91,20 @@ public class DatabaseHelper {
         conn.close();
     }
 
-    public void insertNote(Note note) throws SQLException{
+    public static void insertNote(Note note) throws SQLException{
         Connection conn = DriverManager.getConnection("jdbc:sqlite:personbook.db");
-        String sql = "insert into Note values(?, ?, ?, ?)";
+        String sql = "insert into Note(person_id, create_time, content) values(?, ?, ?)";
         PreparedStatement st = conn.prepareStatement(sql);
-        st.setInt(1, note.getId());
-        st.setInt(2, note.getPersonId());
-        st.setString(3, note.getCreateTime());
-        st.setString(4, note.getContent());
+        st.setInt(1, note.getPersonId());
+        st.setString(2, note.getCreateTime());
+        st.setString(3, note.getContent());
         st.execute();
         st.close();
         conn.close();
 
     }
 
-    public void updatePerson(PersonBook book) throws SQLException{
+    public static void updatePerson(PersonBook book) throws SQLException{
         Connection conn = DriverManager.getConnection("jdbc:sqlite:personbook.db");
         String sql = "update PersonBook set full_name = ?, birth_day = ?, birth_year = ?, " +
                 "important_personal = ?, important_business = ? where id = ?";
