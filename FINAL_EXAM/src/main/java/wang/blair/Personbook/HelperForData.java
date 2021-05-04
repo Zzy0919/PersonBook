@@ -41,7 +41,22 @@ public class HelperForData {
         
         return people;
     }
-    
+
+    public static List<Person> generateSamplePersonRecordsFromSqlite() {
+        /*
+        First query all person data from sqlite db. If not found, we will generate sample data and save them to db.
+         */
+        SqliteJDBC sqlite = new SqliteJDBC();
+
+        List<Person> people = sqlite.getPeople();
+        if (people.size() == 0) {
+            people = generateSamplePersonRecords();
+            sqlite.savePeople(people);
+        }
+
+        return people;
+    }
+
     // TIP-06: Alerts
     public static boolean trySetPersonBdayMonthDay(Person person, String monthString, String dayString) {
         boolean success = false;

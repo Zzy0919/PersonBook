@@ -3,6 +3,7 @@ package wang.blair.Personbook;
 import java.time.DateTimeException;
 import java.time.MonthDay;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,8 +40,9 @@ public class PrimaryController {
     @FXML public CheckBox chkBusiness;
     @FXML public ChoiceBox<CaseNote> choiceBoxForCaseNotes;
     
-    public ObservableList<Person> people = FXCollections.observableArrayList(HelperForData.generateSamplePersonRecords());
-    
+    //public ObservableList<Person> people = FXCollections.observableArrayList(HelperForData.generateSamplePersonRecords());
+    public ObservableList<Person> people = FXCollections.observableArrayList(HelperForData.generateSamplePersonRecordsFromSqlite());
+
     public Person currentlySelectedPerson;
     public CaseNote currentlySelectedCaseNote;
     public boolean changesMadeToPersonRecord;
@@ -127,6 +129,9 @@ public class PrimaryController {
     private void userDidClickNew() {
         Person person = new Person();
         this.people.add(person);
+        // save to db
+        //this.db.savePerson(person);
+
         myListView.getSelectionModel().select(person);
         
         btnEdit.setSelected(true);

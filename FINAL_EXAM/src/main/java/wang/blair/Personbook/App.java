@@ -39,7 +39,10 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        System.setProperty("file.encoding","UTF-8");
+        System.out.println("Default Charset=" + Charset.defaultCharset());
+        System.out.println("file.encoding=" + System.getProperty("file.encoding"));
+        System.out.println("Default Charset=" + Charset.defaultCharset());
+        //System.out.println("Default Charset in Use=" + getDefaultCharSet());
         launch();
     }
 
