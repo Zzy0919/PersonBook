@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 
 /**
  * JavaFX App
@@ -37,6 +39,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        System.setProperty("file.encoding","UTF-8");
         launch();
     }
 

@@ -7,6 +7,7 @@ module wang.blair.Personbook {
     requires javafx.controls;
     requires javafx.graphicsEmpty;
     requires javafx.graphics;
+    requires java.sql;
 
     opens wang.blair.Personbook to javafx.fxml;
     exports wang.blair.Personbook;

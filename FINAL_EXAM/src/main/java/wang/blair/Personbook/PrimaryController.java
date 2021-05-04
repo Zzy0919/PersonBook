@@ -48,6 +48,8 @@ public class PrimaryController {
     // prevent userDidSelectCaseNote() from executing when switching between person records.
     public boolean suppressCaseNoteListener = false;
 
+    public SqliteJDBC db;
+
     public void initialize() {
         this.setupButtonIcons();
         this.setupSampleData();
@@ -65,6 +67,10 @@ public class PrimaryController {
         
         myListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> userDidSelectListItem(newValue));
         choiceBoxForCaseNotes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> userDidSelectCaseNote(newValue));
+
+        //initial sqlite db
+        this.db = new SqliteJDBC();
+
     }
     //
     // HANDLE USER ACTIONS
